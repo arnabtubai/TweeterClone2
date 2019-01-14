@@ -1,0 +1,74 @@
+﻿body {
+    font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+    height: 100%;
+    width: 160px;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 80px;
+}
+
+    .sidenav a {
+        padding: 6px 8px 6px 16px;
+        text-decoration: none;
+        font-size: 15px;
+        color: #818181;
+        display: block;
+    }
+
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+
+.main {
+    margin-left: 160px; /* Same as the width of the sidenav */
+    font-size: 12px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+
+        .sidenav a {
+            font-size: 18px;
+        }
+}
+
+
+
+    
+
+    /* Set padding to keep content from hitting the edges */
+    .body-content {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    /* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+    .dl-horizontal dt {
+        white-space: normal;
+    }
+
+    /* Set width on the form input elements since they're 100% wide by default */
+    input,
+    select,
+    textarea {
+        max-width: 280px;
+    }
+
+table {
+    table-layout: fixed;
+}
+td {
+    word-wrap: break-word
+}

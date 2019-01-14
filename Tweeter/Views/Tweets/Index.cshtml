@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Tweeter.Models.Tweet>
+<hr />
+<hr />
+@{
+    ViewBag.Title = "Tweet";
+}
+<p>
+
+    @Html.Partial("Create", new Tweeter.Models.Tweet())
+</p>
+<table class="table-condensed" id="twttable" width="70%" align="left">
+    <tr></tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td width="70%">
+                <b> @item.Person.FullName</b> wrote:  @Html.DisplayFor(modelItem => item.Message)
+            </td>
+            <td>
+                <b>--Posted at</b> @Html.DisplayFor(modelItem => item.Created)
+            </td>
+            <td>
+                @if (item.Person.user_id.ToUpper() == Session["User"].ToString().ToUpper())
+                {
+                    @:@Html.ActionLink("Edit", "Edit", new { id = item.tweet_id }) |
+                    @:@Html.ActionLink("Delete", "Delete", new { id = item.tweet_id })
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger" role="alert">
+        <strong>Error!</strong> @ViewBag.ErrorMessage
+    </div>
+}

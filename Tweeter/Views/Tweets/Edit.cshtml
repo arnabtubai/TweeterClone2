@@ -1,0 +1,53 @@
+﻿@model Tweeter.Models.Tweet
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Edit Tweet</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.tweet_id)
+    
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Message, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <span id="charNum">@(140 - Model.Message.Length) remaining chars.</span>
+            @Html.TextAreaFor(model => model.Message, htmlAttributes: new { @class = "form-control", @OnKeyUp = "countChar(this);", @Maxlength = 140, @Rows = 8 })
+            @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger" role="alert">
+        <strong>Error!</strong> @ViewBag.ErrorMessage
+    </div>
+}
+<div>
+    @Html.ActionLink("Back to Tweet", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

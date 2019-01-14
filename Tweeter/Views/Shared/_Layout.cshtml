@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Arnab Dey(139746)</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script>
+        function countChar(val) {
+
+        var len = val.value.length;
+        if (len >= 140) {
+          val.value = val.value.substring(0, 500);
+        } else {
+            $('#charNum').text(140 - len).append(" remaining chars.");
+        }
+      };
+    </script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Tweeter Clone done by Arnab Dey(139746)", "Index", "Tweets", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Tweets")</li>
+
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+
+    </div>
+
+
+    @if (Session["Followers"] != null && Session["Following"] != null && Session["Tweets"] != null)
+    {
+
+        <div class="sidenav">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+
+                <input type="text" name="strSearch" width="70%" class="input-sm" />
+                <br />
+                <input type="submit" class="btn-primary" value="Search People" formaction=@Url.Action("../Person/Index") formmethod="post" />
+
+
+            }
+            <hr />
+            <a href="~/Tweets/Index">Tweets: @Session["Tweets"].ToString()</a>
+            <a href="~/Person/Followers">Followers: @Session["Followers"].ToString()</a>
+            <a href="~/Person/Following">Following: @Session["Following"].ToString()</a>
+
+            <hr />
+
+        </div>
+    }
+
+
+    <div class="container body-content main">
+        @RenderBody()
+        <hr />
+
+    </div>
+
+   
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

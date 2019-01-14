@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Tweeter.Models.Person>
+
+@{
+    ViewBag.Title = "Following";
+}
+
+<h2>Following</h2>
+
+<p>
+    @Html.ActionLink("Go To People list", "Index")
+</p>
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.FullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Joined)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Joined)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Active)
+            </td>
+            <td>
+                @if (item.Followers.Exists(x => x.user_id == Session["User"].ToString()))
+                {
+                    @Html.ActionLink("UnFollow", "UnFollow", new { id = item.user_id })
+                }
+                else
+                {
+                    @Html.ActionLink("Follow", "Follow", new { id = item.user_id })
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger" role="alert">
+        <strong>Error!</strong> @ViewBag.ErrorMessage
+    </div>
+}
